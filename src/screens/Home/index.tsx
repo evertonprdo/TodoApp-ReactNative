@@ -13,9 +13,9 @@ export default function Home() {
 
       <View style={styles.content}>
 
-        <TodoInput/>
+        <TodoInput />
 
-        <TaskList/>
+        <TaskList />
       </View>
     </View>
   )

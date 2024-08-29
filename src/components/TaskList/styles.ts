@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   },
 
   contentList: {
-    paddingBottom: 200
+    paddingBottom: 200,
+    gap: 12,
   }
 })
 

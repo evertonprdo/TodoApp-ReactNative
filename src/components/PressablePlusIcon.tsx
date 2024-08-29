@@ -11,7 +11,7 @@ export function PressablePlusIcon() {
 
   const animatedStyles = useAnimatedStyle(() => ({
     backgroundColor: svIsPressedIn.value
-      ? withTiming(Colors.brand.blue, { easing: Easing.out(Easing.circle) })
+      ? withTiming(Colors.brand.blue, { duration: 120, easing: Easing.out(Easing.circle) })
       : withTiming(Colors.brand.blueDark),
   }))
 
@@ -20,6 +20,7 @@ export function PressablePlusIcon() {
       onPressIn={() => svIsPressedIn.value = true}
       onPressOut={() => svIsPressedIn.value = false}
       style={[styles.container, animatedStyles]}
+      hitSlop={8}
     >
       <PlusCircle />
     </AnimatedPressable>
@@ -28,7 +29,6 @@ export function PressablePlusIcon() {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "flex-start",
     padding: 18,
     borderRadius: 8,
   }
