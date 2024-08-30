@@ -19,6 +19,9 @@
       "@styles/*": [
         "./src/styles/*"
       ],
+      "@state/*": [
+        "./src/state/*"
+      ],
     }
   }
 }

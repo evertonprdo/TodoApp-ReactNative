@@ -42,7 +42,7 @@ export function Checkbox({ value, onChangeValue }: Props) {
     <AnimatedPressable
       style={[styles.container, animatedStyle]}
       onPress={() => onChangeValue(!value)}
-      hitSlop={4}
+      hitSlop={12}
     >
 
       <Animated.View style={checkAnimatedStyle}>

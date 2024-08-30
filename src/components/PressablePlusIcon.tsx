@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, PressableProps, StyleSheet } from "react-native";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import PlusCircle from "@assets/PlusCircle";
 
@@ -6,7 +6,7 @@ import Colors from "@styles/Colors";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export function PressablePlusIcon() {
+export function PressablePlusIcon({ ...props }: PressableProps) {
   const svIsPressedIn = useSharedValue(false);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -21,6 +21,7 @@ export function PressablePlusIcon() {
       onPressOut={() => svIsPressedIn.value = false}
       style={[styles.container, animatedStyles]}
       hitSlop={8}
+      {...props}
     >
       <PlusCircle />
     </AnimatedPressable>

@@ -3,6 +3,7 @@ import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withSeq
 
 import Colors from "@styles/Colors";
 import { FontFamily, FontSize } from "@styles/Fonts";
+import { forwardRef } from "react";
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
 
@@ -11,29 +12,33 @@ const AnimationConfig = {
   easing: Easing.out(Easing.ease)
 }
 
-export function Input({ ...props }: TextInputProps) {
-  const svIsOnBluer = useSharedValue(true);
+export const Input = forwardRef<TextInput, TextInputProps>(
+  ({ ...props }, ref) => {
+    const svIsOnBluer = useSharedValue(true);
 
-  const animatedStyles = useAnimatedStyle(() => ({
-    borderColor: svIsOnBluer.value
-      ? withTiming(Colors.gray[700])
-      : withSequence(
-        withTiming(Colors.brand.purple, AnimationConfig),
-        withRepeat(withTiming(Colors.brand.purpleDark, AnimationConfig), -1, true)
-      )
-  }));
+    const animatedStyles = useAnimatedStyle(() => ({
+      borderColor: svIsOnBluer.value
+        ? withTiming(Colors.gray[700])
+        : withSequence(
+          withTiming(Colors.brand.purple, AnimationConfig),
+          withRepeat(withTiming(Colors.brand.purpleDark, AnimationConfig), -1, true)
+        )
+    }));
 
-  return (
-    <AnimatedTextInput
-      placeholderTextColor={Colors.gray[300]}
-      cursorColor={Colors.gray[100]}
-      onFocus={() => svIsOnBluer.value = false}
-      onBlur={() => svIsOnBluer.value = true}
-      style={[styles.container, animatedStyles]}
-      {...props}
-    />
-  )
-}
+    return (
+      <AnimatedTextInput
+        ref={ref}
+        placeholderTextColor={Colors.gray[300]}
+        cursorColor={Colors.gray[100]}
+        onFocus={() => svIsOnBluer.value = false}
+        onBlur={() => svIsOnBluer.value = true}
+        style={[styles.container, animatedStyles]}
+        returnKeyType={"done"}
+        {...props}
+      />
+    )
+  }
+)
 
 const styles = StyleSheet.create({
   container: {

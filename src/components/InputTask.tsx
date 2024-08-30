@@ -9,7 +9,6 @@ type Props = TextInputProps & {
 
 export const InputTask = forwardRef<TextInput, Props>(
   ({ isConcluded, ...props }, ref) => {
-
     return (
       <TextInput
         ref={ref}
@@ -20,9 +19,9 @@ export const InputTask = forwardRef<TextInput, Props>(
         ]}
         spellCheck={false}
         autoCorrect={false}
-        multiline
         enterKeyHint="done"
         blurOnSubmit
+        multiline
         {...props}
       />
     )

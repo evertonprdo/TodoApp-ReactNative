@@ -2,7 +2,12 @@ import { Text, View } from "react-native";
 
 import styles from "./styles";
 
-export function TasksInfo() {
+type Props = {
+  createdCount: number
+  doneCount: number
+}
+
+export function TasksInfo({ createdCount, doneCount }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -11,7 +16,7 @@ export function TasksInfo() {
         </Text>
 
         <Text style={styles.counter}>
-          5
+          {createdCount}
         </Text>
       </View>
 
@@ -21,7 +26,7 @@ export function TasksInfo() {
         </Text>
 
         <Text style={styles.counter}>
-          5
+          {doneCount}
         </Text>
       </View>
     </View>

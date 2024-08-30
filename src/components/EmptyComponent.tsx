@@ -1,8 +1,9 @@
 import { Image, StyleProp, StyleSheet, Text, TextStyle, View } from "react-native";
 
-import ClipboardPng from "@assets/Clipboard.png"
-import { FontFamily, FontSize } from "@styles/Fonts";
 import Colors from "@styles/Colors";
+import { FontFamily, FontSize } from "@styles/Fonts";
+
+import ClipboardPng from "@assets/Clipboard.png"
 
 export function EmptyComponent() {
   return (
