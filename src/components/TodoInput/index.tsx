@@ -27,8 +27,6 @@ export function TodoInput() {
     setNewTask("");
   }
 
-  console.log(lastId.state)
-
   return (
     <Animated.View
       style={styles.container}

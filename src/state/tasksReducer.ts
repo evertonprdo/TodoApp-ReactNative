@@ -17,7 +17,7 @@ export function tasksReducer(tasks: TaskProps[], action: ReducerActionProps) {
     case 'refresh':
       return refreshDispach(tasks)
     default:
-      throw Error('Unknown action: ' + action);
+      throw Error('Unknown action');
 
   }
 }
