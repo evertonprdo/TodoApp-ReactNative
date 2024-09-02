@@ -1,20 +1,14 @@
+import { mockInitialTasks } from "@__tests__/mocks/mockInitialTasks";
 import { tasksReducer } from "./tasksReducer";
 import { ReducerActionProps, TaskProps } from "./types"
-
-const initialState: TaskProps[] = [
-  { id: 1, text: 'Task 1', done: true },
-  { id: 2, text: 'Task 2', done: false },
-  { id: 3, text: 'Task 3', done: true },
-  { id: 4, text: 'Task 4', done: false },
-];
 
 describe('tasksReducer', () => {
   let state: TaskProps[] = [];
 
   beforeEach(() => {
-    state = initialState.map(task => ({ ...task }));
+    state = mockInitialTasks.map(task => ({ ...task }));
   });
-  test('should handle the "added" action', () => {
+  it('should handle the "added" action', () => {
     const action: ReducerActionProps = {
       type: 'added',
       params: {
@@ -32,7 +26,7 @@ describe('tasksReducer', () => {
     });
   });
 
-  test('should handle the "text_changed" action', () => {
+  it('should handle the "text_changed" action', () => {
     const action: ReducerActionProps = {
       type: 'text_changed',
       params: {
@@ -46,7 +40,7 @@ describe('tasksReducer', () => {
     expect(newState[0].text).toBe('Updated Task')
   });
 
-  test('should handle the "updated" action', () => {
+  it('should handle the "updated" action', () => {
     const action: ReducerActionProps = {
       type: 'updated',
       params: {
@@ -59,7 +53,7 @@ describe('tasksReducer', () => {
     expect(newState[0].done).toBe(false);
   });
 
-  test('should handle the "deleted" action', () => {
+  it('should handle the "deleted" action', () => {
     const action: ReducerActionProps = {
       type: 'deleted',
       params: {
@@ -72,7 +66,7 @@ describe('tasksReducer', () => {
     expect(newState).toHaveLength(3);
   });
 
-  test('should the "refresh" action', () => {
+  it('should the "refresh" action', () => {
     const action: ReducerActionProps = {
       type: 'refresh',
     };
@@ -85,7 +79,7 @@ describe('tasksReducer', () => {
     expect(newState[3].done).toBe(true);
   });
 
-  test('should throw an error for unknown action types', () => {
+  it('should throw an error for unknown action types', () => {
     const action = { type: 'unknown_action' }
 
     expect(() => tasksReducer(state, action as any)).toThrow('Unknown action')

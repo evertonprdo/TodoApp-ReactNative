@@ -1,8 +1,9 @@
 # Todo List App
 
-A Todo List app built with React Native, utilizing Context API, `useReducer`, and AsyncStorage to manage and persist tasks.
+Project developed from the challenge of the Rocketseat React Native Training course. A Todo List app built with React Native, utilizing Context API, `useReducer`, and AsyncStorage to manage and persist tasks.
 
-![Video](./screenshots/video.gif) ![Banner](./screenshots/1.png)
+![Banner](./screenshots/1.png)
+<img src="./screenshots/video.gif" width="498" height="1080" />
 
 ## Features
 

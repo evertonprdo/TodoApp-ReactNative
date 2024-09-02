@@ -13,6 +13,7 @@ module.exports = function (api) {
             "@storage": "./src/storage",
             "@styles": "./src/styles",
             "@state": "./src/state",
+            '@__tests__': './__tests__',
           }
         }
       ], 'react-native-reanimated/plugin',
