@@ -27,6 +27,7 @@ export const Input = forwardRef<TextInput, TextInputProps>(
 
     return (
       <AnimatedTextInput
+        testID={'anim-input'}
         ref={ref}
         placeholderTextColor={Colors.gray[300]}
         cursorColor={Colors.gray[100]}

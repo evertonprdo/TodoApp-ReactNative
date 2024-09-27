@@ -14,7 +14,6 @@ type Props = {
 
 export function Checkbox({ value, onChangeValue }: Props) {
   const svIsChecked = useSharedValue(value);
-  svIsChecked.value = value ?? false
 
   const animatedStyle = useAnimatedStyle(() => ({
     borderColor: svIsChecked.value
@@ -35,18 +34,21 @@ export function Checkbox({ value, onChangeValue }: Props) {
   }))
 
   useEffect(() => {
-    svIsChecked.value = value
+    svIsChecked.value = value ?? false
   }, [value])
 
   return (
     <AnimatedPressable
+      testID={'animated-checkbox'}
       style={[styles.container, animatedStyle]}
       onPress={() => onChangeValue(!value)}
       hitSlop={12}
     >
-
-      <Animated.View style={checkAnimatedStyle}>
-        <Check fill={Colors.gray[100]}/>
+      <Animated.View
+        testID={'animated-check-icon'}
+        style={checkAnimatedStyle}
+      >
+        <Check fill={Colors.gray[100]} />
       </Animated.View>
     </AnimatedPressable>
   )

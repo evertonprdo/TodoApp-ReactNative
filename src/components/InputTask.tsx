@@ -4,18 +4,19 @@ import Colors from "@styles/Colors";
 import { forwardRef } from "react";
 
 type Props = TextInputProps & {
-  isConcluded?: boolean
+  isCompleted?: boolean
 }
 
 export const InputTask = forwardRef<TextInput, Props>(
-  ({ isConcluded, ...props }, ref) => {
+  ({ isCompleted, ...props }, ref) => {
     return (
       <TextInput
+        testID="input-task"
         ref={ref}
         cursorColor={Colors.gray[100]}
         style={[
           styles.container,
-          isConcluded ? styles.done : styles.notDone
+          isCompleted ? styles.done : styles.notDone
         ]}
         spellCheck={false}
         autoCorrect={false}

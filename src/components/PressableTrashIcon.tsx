@@ -56,7 +56,7 @@ export function PressableTrashIcon({ ...props }: PressableProps) {
       </Animated.View>
     </AnimatedPressable>
   )
-} // Directly animating the fill property is not working
+} // Directly animating the fill property isn't working
 
 const styles = StyleSheet.create({
   container: {

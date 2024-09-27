@@ -102,7 +102,7 @@ export function Task({ task }: Props) {
       <InputTask
         ref={inputTaskRef}
         value={task.text}
-        isConcluded={task.done}
+        isCompleted={task.done}
         editable={isEditing}
         onChangeText={handleChangeTask}
         onSubmitEditing={handleOnSubmit}
