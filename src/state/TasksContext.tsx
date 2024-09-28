@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer, useState } from "react";
 
 import { tasksReducer } from "./tasksReducer";
 import { TasksContextProps } from "./types";
-import { percistStorageTasks, TasksStorageProps } from "@storage/taksStorage";
+import { percistStorageTasks, TasksStorageProps } from "@storage/tasksStorage";
 
 export const TasksContext = createContext<TasksContextProps>({} as TasksContextProps)
 
@@ -11,7 +11,7 @@ export type Props = {
   children: React.ReactNode
 }
 
-export function TasksProvider({ initialTasks: initialTasks, children }: Props) {
+export function TasksProvider({ initialTasks, children }: Props) {
   const [tasks, dispatch] = useReducer(tasksReducer, initialTasks.tasks)
   const [lastId, setLastId] = useState(initialTasks.lastId)
 

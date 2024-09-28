@@ -39,6 +39,7 @@ export function TaskList() {
       />
 
       <Animated.FlatList
+        testID="task-list"
         data={tasks}
         keyExtractor={item => `Key_${item.id}`}
         contentContainerStyle={styles.contentList}

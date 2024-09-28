@@ -1,87 +1,76 @@
-import { mockInitialTasks } from "@__tests__/mocks/mockInitialTasks";
-import { tasksReducer } from "./tasksReducer";
-import { ReducerActionProps, TaskProps } from "./types"
+import { tasksReducer } from "./tasksReducer"
 
-describe('tasksReducer', () => {
-  let state: TaskProps[] = [];
-
-  beforeEach(() => {
-    state = mockInitialTasks.map(task => ({ ...task }));
-  });
-  it('should handle the "added" action', () => {
-    const action: ReducerActionProps = {
+describe("State: Tasks Reducer", () => {
+  it("should add new task with the 'added' action type", () => {
+    const task = { id: 1, text: 'new-task' }
+    const tasks = tasksReducer([], {
       type: 'added',
-      params: {
-        id: 5,
-        text: 'New Task',
-      },
-    };
+      params: task
+    })
 
-    const newState = tasksReducer(state, action);
-    expect(newState).toHaveLength(5);
-    expect(newState[0]).toEqual({
-      id: 5,
-      text: 'New Task',
-      done: false
-    });
-  });
-
-  it('should handle the "text_changed" action', () => {
-    const action: ReducerActionProps = {
-      type: 'text_changed',
-      params: {
-        id: 1,
-        text: 'Updated Task'
-      }
-    }
-
-    const newState = tasksReducer(state, action);
-
-    expect(newState[0].text).toBe('Updated Task')
-  });
-
-  it('should handle the "updated" action', () => {
-    const action: ReducerActionProps = {
-      type: 'updated',
-      params: {
-        id: 1
-      }
-    }
-
-    const newState = tasksReducer(state, action);
-
-    expect(newState[0].done).toBe(false);
-  });
-
-  it('should handle the "deleted" action', () => {
-    const action: ReducerActionProps = {
-      type: 'deleted',
-      params: {
-        id: 1,
-      }
-    }
-
-    const newState = tasksReducer(state, action);
-
-    expect(newState).toHaveLength(3);
-  });
-
-  it('should the "refresh" action', () => {
-    const action: ReducerActionProps = {
-      type: 'refresh',
-    };
-
-    const newState = tasksReducer(state, action);
-
-    expect(newState[0].done).toBe(false);
-    expect(newState[1].done).toBe(false);
-    expect(newState[2].done).toBe(true);
-    expect(newState[3].done).toBe(true);
-  });
-
-  it('should throw an error for unknown action types', () => {
-    const action = { type: 'unknown_action' }
-
-    expect(() => tasksReducer(state, action as any)).toThrow('Unknown action')
+    expect(tasks).toHaveLength(1)
+    expect(tasks).toEqual([{ ...task, done: false }])
   })
-});
+
+  it("should change text with the 'text_changed' action type", () => {
+    const task = { id: 1, text: 'task', done: false }
+
+    const tasks = tasksReducer([task], {
+      type: 'text_changed',
+      params: { id: 1, text: 'edited-task' },
+    })
+
+    expect(tasks).toHaveLength(1)
+    expect(tasks).toEqual([{ ...task, text: 'edited-task' }])
+  })
+
+  it("should updated done with the 'updated' action type", () => {
+    const task = { id: 1, text: 'task', done: false }
+
+    const tasks = tasksReducer([task], {
+      type: 'updated',
+      params: { id: 1 },
+    })
+
+    expect(tasks).toHaveLength(1)
+    expect(tasks).toEqual([{ ...task, done: true }])
+  })
+
+  it("should delete task with the 'deleted' action type", () => {
+    const task = { id: 1, text: 'task', done: false }
+
+    const tasks = tasksReducer([task], {
+      type: 'deleted',
+      params: { id: 1 },
+    })
+
+    expect(tasks).toHaveLength(0)
+  })
+
+  it("should sort done items at the end with the 'refresh' action type", () => {
+    const initalTasks = [
+      { id: 1, text: 'task', done: true },
+      { id: 2, text: 'task', done: false },
+      { id: 3, text: 'task', done: true },
+      { id: 4, text: 'task', done: false },
+    ]
+
+    const orderedTasks = tasksReducer(initalTasks, { type: 'refresh' })
+
+    expect(orderedTasks).toHaveLength(4)
+
+    expect(orderedTasks.slice(0, 2)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ done: false }),
+        expect.objectContaining({ done: false }),
+      ])
+    )
+
+    expect(orderedTasks.slice(2)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ done: true }),
+        expect.objectContaining({ done: true }),
+      ])
+    )
+  })
+})

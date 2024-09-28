@@ -28,6 +28,7 @@ export function PressablePencilIcon({ isOnFocus, ...props }: Props) {
 
   return (
     <AnimatedPressable
+      testID='anim-pressable-pencil'
       style={[styles.container, animatedStyle]}
       onPressIn={() => svIsPressedIn.value = true}
       onPressOut={() => svIsPressedIn.value = false}
@@ -41,15 +42,25 @@ export function PressablePencilIcon({ isOnFocus, ...props }: Props) {
             entering={FadeIn.duration(AnimationConfig.duration).easing(AnimationConfig.easing)}
             exiting={FadeOut.duration(AnimationConfig.duration).easing(AnimationConfig.easing)}
           >
-            <Check width={IconSize} height={IconSize} fill={Colors.brand.blue} />
+            <Check
+              testID='check-icon'
+              width={IconSize}
+              height={IconSize}
+              fill={Colors.brand.blue}
+            />
           </Animated.View>
         ) : (
           <Animated.View
-            key={"onBluer"}
+            key={"onBlur"}
             entering={FadeIn.duration(AnimationConfig.duration).easing(AnimationConfig.easing)}
             exiting={FadeOut.duration(AnimationConfig.duration).easing(AnimationConfig.easing)}
           >
-            <Pencil width={IconSize} height={IconSize} fill={Colors.gray[300]} />
+            <Pencil
+              testID='pencil-icon'
+              width={IconSize}
+              height={IconSize}
+              fill={Colors.gray[300]}
+            />
           </Animated.View>
         )
       }

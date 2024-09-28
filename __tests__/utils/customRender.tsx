@@ -1,9 +1,15 @@
 import { PropsWithChildren } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { mockInitialStorage } from "@__tests__/mocks/mockInitialTasks";
+import type { TasksStorageProps } from "@storage/tasksStorage";
+
 import { render, RenderOptions } from "@testing-library/react-native"
 import { TasksProvider } from "@state/TasksContext";
+
+const mockInitialStorage: TasksStorageProps = {
+  tasks: [],
+  lastId: 0
+}
 
 function Providers({ children }: PropsWithChildren) {
   return (

@@ -17,6 +17,7 @@ export function PressablePlusIcon({ ...props }: PressableProps) {
 
   return (
     <AnimatedPressable
+      testID='anim-pressable-plus'
       onPressIn={() => svIsPressedIn.value = true}
       onPressOut={() => svIsPressedIn.value = false}
       style={[styles.container, animatedStyles]}

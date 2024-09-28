@@ -90,6 +90,7 @@ export function Task({ task }: Props) {
 
   return (
     <Animated.View
+      testID="task-component"
       style={[styles.container, animatedStyles]}
       entering={SlideInRight}
       exiting={SlideOutLeft}

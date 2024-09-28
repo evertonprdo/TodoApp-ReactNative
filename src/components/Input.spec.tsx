@@ -1,9 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react-native"
-import { hexToRgb } from "@utils/hexToRgba"
+import { hexToRgb, rgbaRegex } from "@utils/hexToRgba"
 
 import { Input } from "./Input"
-
-const rgbaRegex = /^rgba\(\d{1,3}, \d{1,3}, \d{1,3}, 1\)$/
 
 describe("Componets: Input", () => {
   afterEach(() => {

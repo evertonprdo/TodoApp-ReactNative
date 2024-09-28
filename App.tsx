@@ -7,7 +7,7 @@ import Home from '@screens/Home';
 
 import { Loading } from '@components/Loading';
 import { TasksProvider } from '@state/TasksContext';
-import { getStorageTasks, TasksStorageProps } from '@storage/taksStorage';
+import { getStorageTasks, TasksStorageProps } from '@storage/tasksStorage';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Inter_400Regular, Inter_700Bold });

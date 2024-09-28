@@ -41,17 +41,18 @@ export function PressableTrashIcon({ ...props }: PressableProps) {
 
   return (
     <AnimatedPressable
+      testID='anim-pressable-trash'
       style={[styles.container, animatedStyle]}
       onPressIn={handlePressedIn}
       onPressOut={handlePressedOut}
       hitSlop={4}
       {...props}
     >
-      <Animated.View style={[styles.icon, onPressInStyle]}>
+      <Animated.View testID='red-trash' style={[styles.icon, onPressInStyle]}>
         <Trash fill={Colors.feedback.danger} />
       </Animated.View>
 
-      <Animated.View style={[styles.icon, onPressOutStyle]}>
+      <Animated.View testID='gray-trash' style={[styles.icon, onPressOutStyle]}>
         <Trash fill={Colors.gray[300]} />
       </Animated.View>
     </AnimatedPressable>

@@ -7,7 +7,7 @@ import ClipboardPng from "@assets/Clipboard.png"
 
 export function EmptyComponent() {
   return (
-    <View style={styles.container}>
+    <View testID="empty-component" style={styles.container}>
       <Image source={ClipboardPng}/>
 
       <Text style={styles.headline}>
