@@ -15,7 +15,9 @@ describe("Components: TaskList", () => {
   beforeEach(() => {
     (useTasks as jest.Mock).mockReturnValue({
       tasks: mockTasks,
-      dispatch: jest.fn(),
+      dispatches: {
+        refresh: jest.fn()
+      },
     })
   })
 
@@ -27,10 +29,9 @@ describe("Components: TaskList", () => {
     expect(screen.queryByText('empty-component')).toBeNull()
   })
 
-  it("should render the EmptyComponent when no tasks are avaible", () => {
+  it("should render the EmptyComponent when no tasks are available", () => {
     (useTasks as jest.Mock).mockReturnValueOnce({
-      tasks: [],
-      dispatch: jest.fn()
+      tasks: []
     })
 
     render(<TaskList />)
@@ -47,7 +48,7 @@ describe("Components: TaskList", () => {
       refreshControl.props.onRefresh()
     })
 
-    expect(useTasks().dispatch).toHaveBeenCalledWith({ type: 'refresh' })
+    expect(useTasks().dispatches.refresh).toHaveBeenCalledTimes(1)
   })
 
   it("should render the correct create count info", () => {

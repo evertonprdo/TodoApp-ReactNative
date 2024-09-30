@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react-native"
 
 import { InputTask } from "./InputTask"
 
-describe("Componets: InputTask", () => {
+describe("Components: InputTask", () => {
   it("should be able to render", () => {
     render(<InputTask placeholder="tasks-render-test" />)
 

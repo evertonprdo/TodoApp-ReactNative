@@ -2,8 +2,6 @@ import { fireEvent, render, screen } from "@testing-library/react-native"
 
 import { Checkbox } from "./Checkbox"
 
-const animatedScaleStyle = (value: number) => ({ transform: [{ scale: value }] })
-
 describe("Components: Checkbox", () => {
   beforeEach(() => {
     jest.useFakeTimers()
@@ -17,10 +15,10 @@ describe("Components: Checkbox", () => {
     render(<Checkbox onChangeValue={() => {}}/>)
 
     expect(screen.getByTestId('animated-checkbox')).toBeTruthy()
-    expect(screen.getByTestId('animated-check-icon')).toBeTruthy()
+    expect(screen.queryByTestId('animated-check-icon')).toBeFalsy()
   })
 
-  it("should be rendered with scale 0 when value is false", () => {
+  it("should not render check icon when value false", () => {
     render(
       <Checkbox
         value={false}
@@ -28,11 +26,10 @@ describe("Components: Checkbox", () => {
       />
     )
 
-    const animCheckIcon = screen.getByTestId('animated-check-icon')
-    expect(animCheckIcon).toHaveAnimatedStyle(animatedScaleStyle(0))
+    expect(screen.queryByTestId('animated-check-icon')).toBeNull()
   })
 
-  it("should be rendered with scale 1 when value is true", () => {
+  it("should render icon when value is true", () => {
     render(
       <Checkbox
         value={true}
@@ -40,8 +37,7 @@ describe("Components: Checkbox", () => {
       />
     )
 
-    const animCheckIcon = screen.getByTestId('animated-check-icon')
-    expect(animCheckIcon).toHaveAnimatedStyle(animatedScaleStyle(1))
+    expect(screen.queryByTestId('animated-check-icon')).toBeTruthy()
   })
 
   it("should call onChangeValue with the opposite value when pressed", async () => {

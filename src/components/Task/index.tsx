@@ -1,14 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Animated, { Easing, SlideInRight, SlideOutLeft, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from "react-native-reanimated";
 
 import Colors from "@styles/Colors";
 
+import Pencil from "@assets/Pencil";
+import Check from "@assets/Check";
+import XCircle from "@assets/XCircle";
+
 import styles from "./styles";
 import { Checkbox } from "@components/Checkbox";
 import { PressableTrashIcon } from "@components/PressableTrashIcon";
-import { PressablePencilIcon } from "@components/PressablePencilIcon";
+import { PressableIcon } from "@components/PressableIcon";
 import { InputTask } from "@components/InputTask";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 
 import { TaskProps } from "@state/types";
 import { useTasks } from "@state/useTasks";
@@ -23,13 +27,15 @@ type Props = {
 }
 
 export function Task({ task }: Props) {
-  const { dispatch } = useTasks();
-  const [isEditing, setIsEditing] = useState(false);
+  const { dispatches } = useTasks()
 
-  const svIsOnBluer = useSharedValue(true);
+  const [isEditing, setIsEditing] = useState(false)
+  const [localText, setLocalText] = useState(task.text)
+
+  const svIsOnBlur = useSharedValue(true)
 
   const animatedStyles = useAnimatedStyle(() => ({
-    borderColor: svIsOnBluer.value
+    borderColor: svIsOnBlur.value
       ? withTiming(Colors.gray[400])
       : withSequence(
         withTiming(Colors.brand.purple, AnimationConfig),
@@ -40,10 +46,10 @@ export function Task({ task }: Props) {
   const inputTaskRef = useRef<TextInput>(null)
 
   function handleOnFocus() {
-    const cursorPostion = task.text.length
-    inputTaskRef.current?.setSelection(cursorPostion, cursorPostion)
+    const cursorPosition = task.text.length
+    inputTaskRef.current?.setSelection(cursorPosition, cursorPosition)
 
-    svIsOnBluer.value = false
+    svIsOnBlur.value = false
   }
 
   function handleOnPressEdit() {
@@ -55,31 +61,27 @@ export function Task({ task }: Props) {
     setIsEditing(true);
   }
 
-  function handleOnSubmit() {
+  function handleSubmit() {
     setIsEditing(false)
 
-    svIsOnBluer.value = true
+    svIsOnBlur.value = true
+
+    dispatches.textChanged(task.id, localText)
+  }
+
+  function handleCancelEdit() {
+    setIsEditing(false)
+
+    svIsOnBlur.value = true
+    setLocalText(task.text)
   }
 
   function handleUpdateTask() {
-    dispatch({
-      type: 'updated',
-      params: { id: task.id }
-    })
+    dispatches.updated(task.id)
   }
 
   function handleDeleteTask() {
-    dispatch({
-      type: 'deleted',
-      params: { id: task.id }
-    });
-  }
-
-  function handleChangeTask(text: string) {
-    dispatch({
-      type: 'text_changed',
-      params: { id: task.id, text }
-    });
+    dispatches.deleted(task.id)
   }
 
   useEffect(() => {
@@ -102,22 +104,38 @@ export function Task({ task }: Props) {
 
       <InputTask
         ref={inputTaskRef}
-        value={task.text}
+        value={localText}
         isCompleted={task.done}
         editable={isEditing}
-        onChangeText={handleChangeTask}
-        onSubmitEditing={handleOnSubmit}
+        onChangeText={setLocalText}
+        onSubmitEditing={handleSubmit}
         onFocus={handleOnFocus}
-        onBlur={handleOnSubmit}
       />
 
-      <PressablePencilIcon
-        isOnFocus={isEditing}
-        onPress={handleOnPressEdit}
-      />
-      <PressableTrashIcon
-        onPress={handleDeleteTask}
-      />
-    </Animated.View>
+      <View style={styles.btnContainer}>
+        {isEditing ? (
+          <Fragment>
+            <PressableIcon
+              icon={Check}
+              onPress={handleSubmit}
+            />
+            <PressableIcon
+              icon={XCircle}
+              onPress={handleCancelEdit}
+            />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <PressableIcon
+              icon={Pencil}
+              onPress={handleOnPressEdit}
+            />
+            <PressableTrashIcon
+              onPress={handleDeleteTask}
+            />
+          </Fragment>
+        )}
+      </View>
+    </Animated.View >
   )
 }

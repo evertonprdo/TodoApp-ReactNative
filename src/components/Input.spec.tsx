@@ -3,7 +3,7 @@ import { hexToRgb, rgbaRegex } from "@utils/hexToRgba"
 
 import { Input } from "./Input"
 
-describe("Componets: Input", () => {
+describe("Components: Input", () => {
   afterEach(() => {
     jest.useRealTimers()
   })

@@ -11,7 +11,7 @@ import Colors from "@styles/Colors";
 import { useTasks } from "@state/useTasks";
 
 export function TaskList() {
-  const { tasks, dispatch } = useTasks();
+  const { tasks, dispatches } = useTasks();
   const [refreshing, setRefreshing] = useState(false);
 
   const createdCount = tasks.length
@@ -19,7 +19,7 @@ export function TaskList() {
 
   useEffect(() => {
     if (refreshing) {
-      dispatch({ type: "refresh" })
+      dispatches.refresh()
       setRefreshing(false);
     }
   }, [refreshing]);
@@ -45,6 +45,7 @@ export function TaskList() {
         contentContainerStyle={styles.contentList}
         showsVerticalScrollIndicator={false}
         itemLayoutAnimation={LinearTransition.springify()}
+        keyboardShouldPersistTaps="handled"
 
         refreshControl={
           <RefreshControl

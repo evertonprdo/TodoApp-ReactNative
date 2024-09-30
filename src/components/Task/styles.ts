@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1
+  },
+  btnContainer: {
+    flexDirection: 'row'
   }
 })
 

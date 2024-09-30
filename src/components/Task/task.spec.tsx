@@ -10,10 +10,24 @@ jest.mock('@state/useTasks', () => ({
 describe("Components: Task", () => {
   const task = { id: 1, text: 'test-todo', done: false }
 
+  const mockAdded = jest.fn()
+  const mockUpdated = jest.fn()
+  const mockDeleted = jest.fn()
+  const mockChangedText = jest.fn()
+
   beforeEach(() => {
     (useTasks as jest.Mock).mockReturnValue({
-      dispatch: jest.fn(),
+      dispatches: {
+        added: mockAdded,
+        updated: mockUpdated,
+        textChanged: mockChangedText,
+        deleted: mockDeleted,
+      }
     })
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
   })
 
   it("should render task texts", () => {
@@ -31,10 +45,8 @@ describe("Components: Task", () => {
 
     fireEvent.press(checkbox)
 
-    expect(useTasks().dispatch).toHaveBeenCalledWith({
-      type: 'updated',
-      params: { id: task.id },
-    })
+    expect(useTasks().dispatches.updated).toHaveBeenCalledTimes(1)
+    expect(useTasks().dispatches.updated).toHaveBeenCalledWith(task.id)
   })
 
   it('should be able to dispatch deleted on hit pressable trash icon', () => {
@@ -43,15 +55,13 @@ describe("Components: Task", () => {
 
     fireEvent.press(trashIcon);
 
-    expect(useTasks().dispatch).toHaveBeenCalledWith({
-      type: 'deleted',
-      params: { id: task.id },
-    })
+    expect(useTasks().dispatches.deleted).toHaveBeenCalledTimes(1)
+    expect(useTasks().dispatches.deleted).toHaveBeenCalledWith(task.id)
   })
 
-  it('should enter edit mode when pencil icon is pressed', () => {
+  it('should enter edit mode when edit button is pressed', () => {
     render(<Task task={task} />)
-    const pencilIcon = screen.getByTestId('anim-pressable-pencil')
+    const pencilIcon = screen.getByTestId('anim-pressable')
 
     fireEvent.press(pencilIcon);
 
@@ -59,20 +69,17 @@ describe("Components: Task", () => {
     expect(inputTask.props.editable).toBe(true)
   })
 
-  it('should be able to dispatch text_changed on change text input', () => {
+  it('should be able to dispatch text_changed on submit text input', () => {
     render(<Task task={task} />)
     const taskInput = screen.getByDisplayValue('test-todo')
-    const editbtn = screen.getByTestId('anim-pressable-pencil')
+    const editBtn = screen.getByTestId('anim-pressable')
 
-    fireEvent.press(editbtn)
+    fireEvent.press(editBtn)
+
     fireEvent(taskInput, 'changeText', 'edited-todo');
+    fireEvent(taskInput, 'submitEditing')
 
-    expect(useTasks().dispatch).toHaveBeenCalledWith({
-      type: 'text_changed',
-      params: {
-        id: task.id,
-        text: 'edited-todo'
-      },
-    })
+    expect(useTasks().dispatches.textChanged).toHaveBeenCalledTimes(1)
+    expect(useTasks().dispatches.textChanged).toHaveBeenCalledWith(task.id, 'edited-todo')
   })
 })

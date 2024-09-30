@@ -25,7 +25,7 @@ export async function getStorageTasks() {
   }
 }
 
-export async function percistStorageTasks(tasks: TasksStorageProps) {
+export async function persistStorageTasks(tasks: TasksStorageProps) {
   try {
     AsyncStorage.setItem(TASKS_COLLECTION, JSON.stringify(tasks))
 

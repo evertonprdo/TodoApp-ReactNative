@@ -27,9 +27,11 @@ export type ReducerActionProps = ReducerActionsWithIdText | ReducerActionsWithId
 
 export type TasksContextProps = {
   tasks: TaskProps[]
-  dispatch: React.Dispatch<ReducerActionProps>
-  lastId: {
-    state: number
-    setState: (value: number) => void
+  dispatches: {
+    added: (text: string) => void
+    updated: (id: number) => void
+    textChanged: (id: number, text: string) => void
+    deleted: (id: number) => void
+    refresh: () => void
   }
 }

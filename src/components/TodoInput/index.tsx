@@ -8,21 +8,14 @@ import { PressablePlusIcon } from "@components/PressablePlusIcon";
 import { useTasks } from "@state/useTasks";
 
 export function TodoInput() {
-  const { dispatch, lastId } = useTasks();
+  const { dispatches } = useTasks();
   const [newTask, setNewTask] = useState("")
 
   const inputTaskRef = useRef<TextInput>(null)
 
   function handleOnAddTask() {
-    const nextId = lastId.state + 1
-    dispatch({
-      type: "added",
-      params: {
-        id: nextId,
-        text: newTask
-      }
-    })
-    lastId.setState(nextId)
+    dispatches.added(newTask)
+    
     inputTaskRef.current?.blur();
     setNewTask("");
   }

@@ -3,7 +3,7 @@ import { Pressable, StyleSheet } from "react-native";
 
 import Check from "@assets/Check";
 import Colors from "@styles/Colors";
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomOut } from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -25,14 +25,6 @@ export function Checkbox({ value, onChangeValue }: Props) {
       : withTiming("transparent")
   }))
 
-  const checkAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{
-      scale: svIsChecked.value
-        ? withTiming(1, { duration: 555, easing: Easing.bounce })
-        : withTiming(0, { duration: 333 })
-    }]
-  }))
-
   useEffect(() => {
     svIsChecked.value = value ?? false
   }, [value])
@@ -44,12 +36,16 @@ export function Checkbox({ value, onChangeValue }: Props) {
       onPress={() => onChangeValue(!value)}
       hitSlop={12}
     >
-      <Animated.View
-        testID={'animated-check-icon'}
-        style={checkAnimatedStyle}
-      >
-        <Check fill={Colors.gray[100]} />
-      </Animated.View>
+      {value &&
+        <Animated.View
+          testID={'animated-check-icon'}
+          style={styles.animContainer}
+          entering={ZoomIn.duration(500).easing(Easing.bounce)}
+          exiting={ZoomOut}
+        >
+          <Check fill={Colors.gray[100]} />
+        </Animated.View>
+      }
     </AnimatedPressable>
   )
 }
@@ -58,8 +54,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.brand.purpleDark,
 
-    padding: 2,
+    width: 18,
+    height: 18,
+
     borderWidth: 2,
     borderRadius: 999,
+  },
+
+  animContainer: {
+    flex: 1,
+    paddingLeft: 1,
+
+    justifyContent: 'center',
+    alignContent: 'center',
   }
 })

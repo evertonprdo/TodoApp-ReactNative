@@ -48,14 +48,14 @@ describe("State: Tasks Reducer", () => {
   })
 
   it("should sort done items at the end with the 'refresh' action type", () => {
-    const initalTasks = [
+    const initialTasks = [
       { id: 1, text: 'task', done: true },
       { id: 2, text: 'task', done: false },
       { id: 3, text: 'task', done: true },
       { id: 4, text: 'task', done: false },
     ]
 
-    const orderedTasks = tasksReducer(initalTasks, { type: 'refresh' })
+    const orderedTasks = tasksReducer(initialTasks, { type: 'refresh' })
 
     expect(orderedTasks).toHaveLength(4)
 

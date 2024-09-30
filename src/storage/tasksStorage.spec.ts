@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { getStorageTasks, percistStorageTasks } from "./tasksStorage"
+import { getStorageTasks, persistStorageTasks } from "./tasksStorage"
 
 describe("Storage: Tasks Storage", () => {
   beforeEach(async () => {
@@ -16,7 +16,7 @@ describe("Storage: Tasks Storage", () => {
 
   it("should be return task storaged", async () => {
     const task = { id: 1, text: 'new-task', done: false }
-    await percistStorageTasks({
+    await persistStorageTasks({
       tasks: [task],
       lastId: 1
     })
