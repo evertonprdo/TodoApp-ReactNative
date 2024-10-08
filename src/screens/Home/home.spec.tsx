@@ -12,7 +12,7 @@ describe("Screen: Home", () => {
   it("should be able to add a new task", async () => {
     render(<Home />)
 
-    const input = screen.getByPlaceholderText('Adicione uma nova tarefa')
+    const input = screen.getByPlaceholderText('Add a new task')
 
     fireEvent(input, 'changeText', 'new-task')
     fireEvent(input, 'submitEditing')
@@ -23,7 +23,7 @@ describe("Screen: Home", () => {
   it("should be able to complete task", async () => {
     render(<Home />)
 
-    const addTodoInput = screen.getByPlaceholderText('Adicione uma nova tarefa')
+    const addTodoInput = screen.getByPlaceholderText('Add a new task')
 
     fireEvent(addTodoInput, 'changeText', 'new-task')
     fireEvent(addTodoInput, 'submitEditing')
@@ -39,7 +39,7 @@ describe("Screen: Home", () => {
   it("should be able to edit task", async () => {
     render(<Home />)
 
-    const addTodoInput = screen.getByPlaceholderText('Adicione uma nova tarefa')
+    const addTodoInput = screen.getByPlaceholderText('Add a new task')
 
     fireEvent(addTodoInput, 'changeText', 'new-task')
     fireEvent(addTodoInput, 'submitEditing')
@@ -57,7 +57,7 @@ describe("Screen: Home", () => {
   it("should be able to remove task", async () => {
     render(<Home />)
 
-    const addTodoInput = screen.getByPlaceholderText('Adicione uma nova tarefa')
+    const addTodoInput = screen.getByPlaceholderText('Add a new task')
 
     fireEvent(addTodoInput, 'changeText', 'new-task')
     fireEvent(addTodoInput, 'submitEditing')
