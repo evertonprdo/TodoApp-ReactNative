@@ -12,7 +12,7 @@ export function TasksInfo({ createdCount, doneCount }: Props) {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.created}>
-          Criadas
+          Created
         </Text>
 
         <Text testID="create-count" style={styles.counter}>
@@ -22,7 +22,7 @@ export function TasksInfo({ createdCount, doneCount }: Props) {
 
       <View style={styles.content}>
         <Text style={styles.done}>
-          Concluídas
+          Completed
         </Text>
 
         <Text testID="done-count" style={styles.counter}>
