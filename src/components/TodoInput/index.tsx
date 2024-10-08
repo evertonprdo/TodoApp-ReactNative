@@ -27,7 +27,7 @@ export function TodoInput() {
     >
       <Input
         ref={inputTaskRef}
-        placeholder="Adicione uma nova tarefa"
+        placeholder="Add a new task"
         value={newTask}
         onChangeText={setNewTask}
         onSubmitEditing={handleOnAddTask}
