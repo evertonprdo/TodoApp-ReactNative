@@ -24,13 +24,13 @@ describe("Components: TodoInput", () => {
   it("should render input and button", () => {
     render(<TodoInput />)
 
-    expect(screen.getByPlaceholderText("Adicione uma nova tarefa")).toBeTruthy()
+    expect(screen.getByPlaceholderText("Add a new task")).toBeTruthy()
     expect(screen.getByTestId('anim-pressable-plus')).toBeTruthy()
   })
 
   it("should dispatch 'added' on submit editing and clear the input.", () => {
     render(<TodoInput />)
-    const input = screen.getByPlaceholderText("Adicione uma nova tarefa")
+    const input = screen.getByPlaceholderText("Add a new task")
 
     fireEvent(input, 'changeText', 'new-task')
     fireEvent(input, 'submitEditing')
@@ -41,7 +41,7 @@ describe("Components: TodoInput", () => {
 
   it("should dispatch 'added' on press button and clear the input.", () => {
     render(<TodoInput />)
-    const input = screen.getByPlaceholderText("Adicione uma nova tarefa")
+    const input = screen.getByPlaceholderText("Add a new task")
     const btn = screen.getByTestId('anim-pressable-plus')
 
     fireEvent(input, 'changeText', 'new-task')
